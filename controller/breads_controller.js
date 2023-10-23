@@ -6,5 +6,14 @@ breads.get('/', (req,res) => {
     res.send(Bread)
 })
 
+breads.get('/:index', (req,res) => {
+    const index = req.params.index
+    if (index > Bread.length - 1) {
+        res.send("No Such Bread")
+    }
+    const bread = Bread[index]
+    res.send(bread)
+})
+
 
 module.exports = breads
