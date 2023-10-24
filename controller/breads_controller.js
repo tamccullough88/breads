@@ -3,7 +3,10 @@ const breads = express.Router()
 const Bread = require('../models/breads')
 
 breads.get('/', (req,res) => {
-    res.send(Bread)
+    res.render('index', {
+        breads: Bread,
+        title: 'Index Page'
+    })
 })
 
 breads.get('/:index', (req,res) => {
