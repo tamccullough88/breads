@@ -10,6 +10,7 @@ const app = express()
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
+app.use(express.static('public'))
 
 
 // ROUTES
@@ -19,6 +20,12 @@ app.get('/', (req, res) => {
 
 const breadsController = require('./controller/breads_controller.js')
 app.use('/breads', breadsController)
+
+// 404 Page
+app.get('*', (req, res) => {
+  res.send('404')
+})
+
 
 // LISTEN
 app.listen(PORT, () => {
