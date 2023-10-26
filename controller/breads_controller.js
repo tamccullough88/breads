@@ -9,16 +9,37 @@ breads.get('/', (req,res) => {
     })
 })
 
-// SHOW
+// CREATE
+breads.post('/', (req, res) => {
+    console.log(req.body)
+    if(req.body.hasGluten === 'on') {
+      req.body.hasGluten = 'true'
+    } else {
+      req.body.hasGluten = 'false'
+    }
+    Bread.push(req.body)
+    res.redirect('/breads')
+  })
+  
+
+  // NEW
+breads.get('/new', (req, res) => {
+    res.render('new')
+})
+
+  
+
+//Show
 breads.get('/:arrayIndex', (req, res) => {
     if (Bread[req.params.arrayIndex]) {
     res.render('Show', {
         bread:Bread[req.params.arrayIndex]
     })
     } else {
-    res.send('404')
+    res.render('Error')
     }
 })
+
 
 
 
