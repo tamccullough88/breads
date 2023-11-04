@@ -6,6 +6,9 @@ const methodOverride = require('method-override')
 require('dotenv').config()
 const PORT = process.env.PORT
 const app = express()
+const mongoose = require('mongoose')
+const MONGO_URI = process.env.MONGO_URI
+
 
 // MIDDLEWARE
 app.set('views', __dirname + '/views')
@@ -34,7 +37,13 @@ app.get('*', (req, res) => {
 
 
 // LISTEN
-app.listen(PORT, () => {
-  console.log('listening on port', PORT);
-})
 
+const start = async () => {
+  await mongoose.connect(MONGO_URI);
+  console.log('connected to database')
+  app.listen(PORT, () => {
+    console.log('listening on port', PORT);
+  })
+}
+
+start();
