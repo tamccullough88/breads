@@ -29,8 +29,16 @@ console.log("edit page", bread.hasGluten)
             name="hasGluten"
             id="hasGluten"
             defaultChecked={bread.hasGluten}
-            // defaultChecked
           />
+          <br />
+          <select name="baker" id="baker" defaultValue = {bread.bakers}>
+            <option value="Rachel">Rachel</option>
+            <option value="Monica">Monica</option>
+            <option value="Joey">Joey</option>
+            <option value="Chandler">Chandler</option>
+            <option value="Ross">Ross</option>
+            <option value="Phoebe">Phoebe</option>
+          </select>
           <br />
           <input type="submit" value="Update Bread" />
         </form>

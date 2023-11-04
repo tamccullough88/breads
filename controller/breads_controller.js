@@ -46,7 +46,8 @@ breads.get('/:id/edit',async (req, res) => {
 // show path
 breads.get('/:id', async (req, res) => {
         const bread = await Bread.findById(req.params.id)
-
+        const bakedBy = bread.getBakedBy();
+        console.log(bakedBy)
         res.render('show', { bread, id : req.params.id })
         console.log(bread)
       })
