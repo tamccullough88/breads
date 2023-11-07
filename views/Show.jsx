@@ -15,7 +15,7 @@ function Show ({bread, id}) {
         } 
         </p>
         <img src={bread.image} alt={bread.name}></img>
-        <p>Baked By: {bread.baker}</p>
+        <p>{bread.getBakedBy()}</p>
         <button><a href="/breads">Go home</a></button>
 
         <button> <a href={`/breads/${id}/edit`}>

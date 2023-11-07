@@ -1,13 +1,13 @@
 const React = require('react')
 const Default = require('./layouts/default')
 
-function edit ({bread, id}) {
+function edit ({bread, bakers}) {
 console.log("edit page", bread.hasGluten)
     return (
       <Default>
         
         <h2>Edit A Bread</h2>
-        <form  action={`/breads/${id}?_method=PUT`} method="POST">
+        <form  action={`/breads/${bread.id}?_method=PUT`} method="POST">
           <label htmlFor="name">Name</label>
           <input
             type="text"
@@ -31,14 +31,14 @@ console.log("edit page", bread.hasGluten)
             defaultChecked={bread.hasGluten}
           />
           <br />
-          <select name="baker" id="baker" defaultValue = {bread.bakers}>
-            <option value="Rachel">Rachel</option>
-            <option value="Monica">Monica</option>
-            <option value="Joey">Joey</option>
-            <option value="Chandler">Chandler</option>
-            <option value="Ross">Ross</option>
-            <option value="Phoebe">Phoebe</option>
-          </select>
+          <label htmlFor="baker">Baker</label>
+      <select name="baker" id="baker" defaultValue={bread.baker}>
+          {bakers.map((baker) => {
+              return(
+                  <option value={baker.id} key={baker.id}>{baker.name}</option>
+              )
+          })}
+      </select>
           <br />
           <input type="submit" value="Update Bread" />
         </form>
@@ -51,3 +51,8 @@ console.log("edit page", bread.hasGluten)
 }
 
 module.exports = edit
+
+
+
+
+

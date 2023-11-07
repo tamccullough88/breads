@@ -1,7 +1,12 @@
 const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/breads')
+const Baker = require('../models/baker.js')
 
+
+
+
+//index route
 breads.get('/', (req,res) => {
   Bread.find()
     .then(foundBreads => {
@@ -33,19 +38,36 @@ breads.post('/', (req, res) => {
 
   // NEW
 breads.get('/new', (req, res) => {
-    res.render('new')
+  Baker.find()
+    .then(foundBakers => {
+        res.render('new', {
+          bakers: foundBakers
+        })
+
+    })
 })
 
 //edit page
-breads.get('/:id/edit',async (req, res) => {
-  const bread = await Bread.findById(req.params.id)
-  res.render('edit', { bread, id : req.params.id})
+// EDIT
+breads.get('/:id/edit', (req, res) => {
+  Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
+          .then(foundBread => {
+            res.render('edit', {
+                bread: foundBread, 
+                bakers: foundBakers 
+            })
+          })
+    })
 })
+
 
   
 // show path
 breads.get('/:id', async (req, res) => {
         const bread = await Bread.findById(req.params.id)
+        await bread.populate('baker', 'name')
         const bakedBy = bread.getBakedBy();
         console.log(bakedBy)
         res.render('show', { bread, id : req.params.id })

@@ -30,6 +30,11 @@ app.get('/', (req, res) => {
 const breadsController = require('./controller/breads_controller.js')
 app.use('/breads', breadsController)
 
+//bakers
+
+const bakerController = require('./controller/baker_controller.js')
+app.use('/bakers', bakerController)
+
 // 404 Page
 app.get('*', (req, res) => {
   res.render('Error')

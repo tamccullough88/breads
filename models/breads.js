@@ -13,14 +13,14 @@ const breadSchema = new Schema({
         type: String, 
         default: 'http://placehold.it/500x500.png' },
     baker: { 
-        type: String,
-        enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe']
+        type: Schema.Types.ObjectID,
+        ref: 'Baker'
     }
 })
 
 // model and export 
 breadSchema.methods.getBakedBy = function() {
-    return `${this.name} was baked with love by ${this.baker}`
+    return `${this.name} was baked with love by ${this.baker.name}`
 }
 
 const Bread = mongoose.model('Bread', breadSchema)
