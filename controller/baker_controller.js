@@ -11,6 +11,25 @@ baker.get('/data/seed', (req, res) => {
         .then(res.redirect('/breads'))
 })
 
+// Index: 
+baker.get('/', async (req, res) => {
+const bakers = await Baker.find()
+await bakers.populate(bakers, { path: 'breads'})
+res.send(bakers)
+})                    
+
+// Show: 
+baker.get('/:id', (req, res) => {
+    Baker.findById(req.params.id)
+        .populate('breads')
+        .then(foundBaker => {
+            res.render('bakerShow', {
+                baker: foundBaker
+            })
+        })
+})
+
+
 
 
 // export
