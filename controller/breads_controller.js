@@ -2,26 +2,28 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/breads')
 const Baker = require('../models/baker.js')
+const breadSeedData = require('../models/bread_seed.js')
 
-
+// localhost:3003/breads/data/seed
+breads.get('/data/seed', (req, res) => {
+  Bread.insertMany(breadSeedData)
+      .then(res.redirect('/breads'))
+})
 
 
 //index route
-breads.get('/', (req,res) => {
-  Baker.find()
-    .then(foundBakers => {
-      Bread.find()
-        .then(foundBreads => {
+breads.get('/', async (req,res) => {
+  const foundBakers = await Baker.find().lean()
+  const foundBreads = await Bread.find().limit(5).lean()
           res.render('index', {
             breads: foundBreads,
             bakers: foundBakers,
             title: 'Index Page'
-          })
-      console.log(foundBreads)
+            
     })
+    console.log(foundBreads)
   })
 
-})
 
 // CREATE
 breads.post('/', (req, res) => {

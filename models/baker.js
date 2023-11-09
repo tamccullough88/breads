@@ -33,13 +33,15 @@ bakerSchema.virtual('breads', {
 
 //Helper method
 bakerSchema.methods.updateStatusTo = async (status) => {
-    // const {deletedCount} = await Bread.deleteMany({ baker: this._id })
 }
 
 //Hooks
-bakerSchema.post('findOneAndDelete', () => {
+bakerSchema.post('deleteOne', { document: true, query: false }, async function () {
+    console.log('running pre deleteOne')
+    const { deletedCount } = await Bread.deleteMany({ baker: this._id})
+}
 
-})
+)
 
 
 // model and export
